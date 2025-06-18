@@ -8,6 +8,7 @@ import com.eunoia.tasks.services.TaskListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -23,8 +24,25 @@ public class TaskListServiceImpl  implements TaskListService {
     }
 
     @Override
-    public void createTaskList(TaskList taskList){
-        taskListRepository.save(taskList);
+    public TaskList createTaskList(TaskList taskList){
+        if(null !=taskList.getId()){
+            throw new IllegalArgumentException("Task lisyt already has an ID");
+        }
+        if(null== taskList.getTitle() || taskList.getTitle().isBlank()){
+            throw new IllegalArgumentException("Title is required");
+        }
+
+        LocalDateTime now = LocalDateTime.now();
+
+      return  taskListRepository.save(new TaskList(
+                null,
+                taskList.getTitle(),
+                taskList.getDescription(),
+                null,
+                now,
+                 now
+        ));
+
     }
    
 }

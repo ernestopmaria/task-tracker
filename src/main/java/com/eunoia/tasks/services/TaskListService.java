@@ -10,5 +10,5 @@ public interface TaskListService {
 
 
     List<TaskList>taskListService();
-    void createTaskList(TaskList taskList);
+    TaskList createTaskList(TaskList taskList);
 }
