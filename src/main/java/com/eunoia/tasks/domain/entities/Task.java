@@ -23,7 +23,7 @@ public class Task {
     private String description;
 
     @Column(name ="due-date")
-    private LocalDate dueDate;
+    private LocalDateTime dueDate;
 
     @Column(name="status",nullable = false)
     private TaskStatus status;
@@ -44,16 +44,15 @@ public class Task {
     public Task() {
     }
 
-    public Task(UUID id, String description, LocalDate dueDate, String title, TaskStatus status, TaskPriority priority, TaskList taskList, LocalDateTime created, LocalDateTime updated) {
+    public Task(UUID id,String title, String description, LocalDateTime dueDate,  TaskStatus status, TaskPriority priority, TaskList taskList) {
         this.id = id;
+        this.title = title;
         this.description = description;
         this.dueDate = dueDate;
-        this.title = title;
         this.status = status;
         this.priority = priority;
         this.taskList = taskList;
-        this.created = created;
-        this.updated = updated;
+
     }
 
     public LocalDateTime getUpdated() {
@@ -96,11 +95,11 @@ public class Task {
         this.description = description;
     }
 
-    public LocalDate getDueDate() {
+    public LocalDateTime getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(LocalDate dueDate) {
+    public void setDueDate(LocalDateTime dueDate) {
         this.dueDate = dueDate;
     }
 
@@ -126,6 +125,18 @@ public class Task {
 
     public void setCreated(LocalDateTime created) {
         this.created = created;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        LocalDateTime now = LocalDateTime.now();
+        this.created = now;
+        this.updated = now;
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.updated = LocalDateTime.now();
     }
 
     @Override
