@@ -4,6 +4,8 @@ import com.eunoia.tasks.domain.entities.TaskList;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 
 public interface TaskListService {
@@ -11,4 +13,6 @@ public interface TaskListService {
 
     List<TaskList>taskListService();
     TaskList createTaskList(TaskList taskList);
+
+     Optional<TaskList> getTaskList(UUID id);
 }

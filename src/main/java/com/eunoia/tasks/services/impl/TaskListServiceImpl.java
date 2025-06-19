@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
-public class TaskListServiceImpl  implements TaskListService {
+public class    TaskListServiceImpl  implements TaskListService {
     @Autowired
     TaskListRepository taskListRepository;
 
@@ -26,7 +28,7 @@ public class TaskListServiceImpl  implements TaskListService {
     @Override
     public TaskList createTaskList(TaskList taskList){
         if(null !=taskList.getId()){
-            throw new IllegalArgumentException("Task lisyt already has an ID");
+            throw new IllegalArgumentException("Task list already has an ID");
         }
         if(null== taskList.getTitle() || taskList.getTitle().isBlank()){
             throw new IllegalArgumentException("Title is required");
@@ -38,11 +40,16 @@ public class TaskListServiceImpl  implements TaskListService {
                 null,
                 taskList.getTitle(),
                 taskList.getDescription(),
-                null,
+              null,
                 now,
                  now
         ));
 
     }
-   
+
+    @Override
+    public Optional<TaskList> getTaskList(UUID id) {
+        return taskListRepository.findById(id);
+    }
+
 }
