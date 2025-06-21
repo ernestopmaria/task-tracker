@@ -5,7 +5,6 @@ import com.eunoia.tasks.mappers.TaskListMapper;
 import com.eunoia.tasks.services.TaskListService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,7 +36,20 @@ public class TaskListController {
     @PostMapping
     public TaskListDto createList(@RequestBody TaskListDto taskListDto){
        TaskList createdTaskList = taskListService.createTaskList(taskListMapper.fromDto(taskListDto));
-
        return  taskListMapper.toDto(createdTaskList);
     }
+
+    @PutMapping("/{id}")
+    public TaskListDto updateTaskList(@PathVariable UUID id, @RequestBody TaskListDto taskListDto){
+        TaskList updateTaskList =taskListService.updateTaskList(id, taskListMapper.fromDto(taskListDto));
+        return  taskListMapper.toDto(updateTaskList);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteTaskList(@PathVariable UUID id){
+
+        taskListService.deleteTaskList(id);
+    }
+
+
 }
