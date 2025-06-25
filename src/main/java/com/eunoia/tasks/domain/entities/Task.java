@@ -2,7 +2,7 @@ package com.eunoia.tasks.domain.entities;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
@@ -44,7 +44,7 @@ public class Task {
     public Task() {
     }
 
-    public Task(UUID id,String title, String description, LocalDateTime dueDate,  TaskStatus status, TaskPriority priority, TaskList taskList) {
+    public Task(UUID id,String title, String description, LocalDateTime dueDate,  TaskStatus status, TaskPriority priority, TaskList taskList, LocalDateTime created, LocalDateTime updated) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -52,16 +52,12 @@ public class Task {
         this.status = status;
         this.priority = priority;
         this.taskList = taskList;
+        this.updated=updated;
+        this.created=created;
 
     }
 
-    public LocalDateTime getUpdated() {
-        return updated;
-    }
 
-    public void setUpdated(LocalDateTime updated) {
-        this.updated = updated;
-    }
 
     public TaskList getTaskList() {
         return taskList;
@@ -127,17 +123,15 @@ public class Task {
         this.created = created;
     }
 
-    @PrePersist
-    public void prePersist() {
-        LocalDateTime now = LocalDateTime.now();
-        this.created = now;
-        this.updated = now;
+
+    public LocalDateTime getUpdated() {
+        return updated;
     }
 
-    @PreUpdate
-    public void preUpdate() {
-        this.updated = LocalDateTime.now();
+    public void setUpdated(LocalDateTime updated) {
+        this.updated = updated;
     }
+
 
     @Override
     public boolean equals(Object o) {
