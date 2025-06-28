@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -26,6 +27,15 @@ public class TaskController {
        return taskservice.listTasks(task_list_id).stream().map(taskMapper::toDto).toList();
 
     };
+
+    @GetMapping("{task_id}")
+    public Optional<TaskDto> listTask(@PathVariable UUID task_list_id , @PathVariable UUID task_id){
+      return taskservice.getTask(task_list_id, task_id).map(taskMapper::toDto);
+
+
+    };
+
+
 
     @PostMapping
     public TaskDto createTask(@PathVariable UUID task_list_id, @RequestBody TaskDto taskDto){

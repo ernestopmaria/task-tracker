@@ -56,4 +56,12 @@ public class TaskServiceImpl  implements TaskService {
         );
         return taskRepository.save(taskToSave);
     }
+
+    @Override
+    public Optional<Task> getTask(UUID taskListId, UUID id) {
+      taskRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("Task not found"));
+
+      return taskRepository.findByTaskListIdAndId(taskListId, id);
+
+    }
 }
