@@ -43,4 +43,16 @@ public class TaskController {
 
         return taskMapper.toDto(task);
     }
+
+    @PutMapping("/{task_id}")
+    public TaskDto updateTask(@PathVariable UUID task_list_id, @PathVariable UUID task_id, @RequestBody TaskDto taskDto){
+        Task task = taskservice.updateTask(task_list_id, task_id, taskMapper.fromDto(taskDto));
+        return taskMapper.toDto(task);
+
+    }
+
+    @DeleteMapping("/{task_id}")
+    public void deleteTask(@PathVariable UUID task_list_id, @PathVariable UUID task_id){
+        taskservice.deleteTask(task_list_id, task_id);
+    }
 }

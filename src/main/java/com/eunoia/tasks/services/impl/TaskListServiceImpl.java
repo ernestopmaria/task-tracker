@@ -5,6 +5,7 @@ package com.eunoia.tasks.services.impl;
 import com.eunoia.tasks.domain.entities.TaskList;
 import com.eunoia.tasks.repositories.TaskListRepository;
 import com.eunoia.tasks.services.TaskListService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,6 +54,7 @@ public  class    TaskListServiceImpl  implements TaskListService {
         return taskListRepository.findById(id);
     }
 
+    @Transactional
     @Override
     public TaskList updateTaskList(UUID taskListId, TaskList taskList) {
         if(null == taskList.getId()){
